@@ -1,0 +1,11 @@
+# SSL private credentials
+nginx/ssl/*
+!nginx/ssl/.gitkeep
+
+# Environment variables
+.env
+.env.*
+
+# Temporary files
+*.log
+.DS_Store

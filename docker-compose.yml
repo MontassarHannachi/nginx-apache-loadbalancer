@@ -1,0 +1,59 @@
+
+services:
+
+  apache1:
+    image: httpd:2.4-alpine
+    container_name: lb-apache1
+    restart: unless-stopped
+    volumes:
+      - ./apache/apache1:/usr/local/apache2/htdocs:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - backend
+
+  apache2:
+    image: httpd:2.4-alpine
+    container_name: lb-apache2
+    restart: unless-stopped
+    volumes:
+      - ./apache/apache2:/usr/local/apache2/htdocs:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:1.28-alpine
+    container_name: lb-nginx
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - apache1
+      - apache2
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-check-certificate -q -O /dev/null https://127.0.0.1/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
