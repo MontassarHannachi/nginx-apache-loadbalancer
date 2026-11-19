@@ -43,8 +43,10 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
-      - apache1
-      - apache2
+      apache1:
+        condition: service_healthy
+      apache2:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-check-certificate -q -O /dev/null https://127.0.0.1/health || exit 1"]
       interval: 10s
