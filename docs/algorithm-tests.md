@@ -41,7 +41,7 @@ Commande :
 ./scripts/switch-algorithm.sh ip-hash
 ```
 
-Résultat : les 10 requêtes successives provenant du même client ont toutes atteint Apache 1.
+Résultat : les 20 requêtes successives provenant du même client ont toutes atteint Apache 1.
 
 Conclusion : le mécanisme IP Hash conserve l'affinité du client avec le même backend dans ce scénario.
 
@@ -95,4 +95,4 @@ Les trois algorithmes ont été configurés et activés avec succès à l'aide d
 
 Les tests ont permis de vérifier leurs comportements fondamentaux et la disponibilité du service HTTPS.
 
-Un test complémentaire avec des requêtes de durées différentes serait nécessaire pour comparer rig
+Un test complémentaire avec des requêtes de durées différentes serait nécessaire pour comparer rigoureusement les performances de Round Robin et de Least Connections. Les résultats dépendent notamment de la durée des requêtes et du niveau de concurrence.

@@ -189,7 +189,7 @@ The following results were observed during sequential tests of 20 requests:
 | Algorithm | Apache Backend 1 | Apache Backend 2 |
 |---|---:|---:|
 | Round Robin | 12 | 8 |
-| Least Connections | 11 | 9 |
+| Least Connections | 12 | 8 |
 | IP Hash (same client) | 20 | 0 |
 
 These results are observations from a limited test, not a performance ranking. In particular, sequential requests do not demonstrate the advantage of Least Connections under concurrent workloads.

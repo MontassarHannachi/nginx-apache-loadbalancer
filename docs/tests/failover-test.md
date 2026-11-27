@@ -9,7 +9,7 @@ Vérifier que le reverse proxy Nginx continue à fournir le service HTTPS lorsqu
 - Nginx : Reverse Proxy et Load Balancer
 - Apache 1 : Backend 1
 - Apache 2 : Backend 2
-- Algorithme actif : IP Hash
+- Algorithme actif : Least Connections (`least_conn`)
 - Protocole : HTTPS
 - Port externe : 8443
 
